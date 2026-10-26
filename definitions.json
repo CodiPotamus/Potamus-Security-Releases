@@ -1,0 +1,4 @@
+{
+  "payload": "{\"type\":\"potamus-definitions\",\"version\":\"2026.10.26.1030\",\"created\":\"2026-10-26T10:30:41.193Z\",\"patterns\":[{\"level\":\"high\",\"label\":\"Funções perigosas escondidas em texto concatenado\",\"regex\":\"/['\\\"](?:e|s)['\\\"]\\\\s*\\\\.\\\\s*['\\\"](?:val|ystem)['\\\"]/i\"},{\"level\":\"high\",\"label\":\"Carregamento de código a partir de uma URL remota\",\"regex\":\"/\\\\b(?:include|require)(?:_once)?\\\\s*\\\\(?\\\\s*['\\\"]https?:/i\"}],\"vulnerabilities\":[]}",
+  "signature": "xYyLLDJ5hbctw8Fhg87X515Kd15GbjzPNpFOu3ZRY8uKJTm1TtEx+Y1uASxNz+p9AHKt2sVhKCp/91RWui3hAg=="
+}
