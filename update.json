@@ -1,0 +1,12 @@
+{
+  "name": "Potamus Security",
+  "version": "1.4.1",
+  "package": "https://raw.githubusercontent.com/CodiPotamus/potamus-security-releases/main/releases/potamus-security-1.4.1.zip",
+  "sha384": "252a43b8f5b3c17450a30d8c1207b6667c9942269112c318ddb8308fbb8403fbdc4655347104f4fa0991d37a87200940",
+  "signature": "aHMl5ffMUEfHC4ogC9sPPbcotuAPjkVaqMcSOiEfn0vB3LTB4a4U63cXbNCgSUSCK+UIFRbuOFt89XpBXq35Bg==",
+  "requires": "6.0",
+  "requires_php": "7.4",
+  "tested": "7.1",
+  "released": "2026-10-26",
+  "changelog": ""
+}
