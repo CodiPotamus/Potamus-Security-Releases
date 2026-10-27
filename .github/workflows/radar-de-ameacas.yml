@@ -1,0 +1,56 @@
+# Radar de Ameaças: todas as segundas-feiras recolhe vulnerabilidades de plugins e
+# temas WordPress de fontes públicas e livres (CISA KEV, licença CC0, e NVD),
+# assina a lista com a CHAVE DO RADAR e publica o definitions.json.
+#
+# A chave do Radar (segredo POTAMUS_DEFINITIONS_KEY) só é aceite pelo plugin para
+# a lista de ameaças. As atualizações do plugin exigem a chave de código, que
+# nunca está no GitHub.
+name: Radar de Ameaças
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"   # segundas-feiras, 06:17 UTC
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Dias de alterações a recolher na NVD"
+        required: false
+        default: "14"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar-de-ameacas
+  cancel-in-progress: false
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Preparar
+        run: python3 -m pip install --quiet "cryptography>=42,<47"
+
+      - name: Recolher de CISA KEV e NVD
+        run: python3 tools/build-definitions.py --days "${{ github.event.inputs.days || '14' }}" --out radar/state.json
+
+      - name: Assinar com a chave do Radar
+        env:
+          POTAMUS_DEFINITIONS_KEY: ${{ secrets.POTAMUS_DEFINITIONS_KEY }}
+        run: python3 tools/sign-definitions.py radar/state.json definitions.json
+
+      - name: Publicar
+        run: |
+          if git diff --quiet -- radar/ definitions.json; then
+            echo "Sem alterações."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add radar/ definitions.json
+          git commit -m "Radar de Ameaças ($(date -u +%Y-%m-%d))"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push
