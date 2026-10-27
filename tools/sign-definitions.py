@@ -76,8 +76,9 @@ def main():
         "created": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "signed_by": "radar",
         "sources": state.get("sources", []),
-        # Os padrões de código malicioso são mantidos à mão: copiam-se da lista publicada.
-        "patterns": current.get("patterns", state.get("patterns", [])),
+        # Os padrões de código malicioso são mantidos à mão em radar/state.json (nomes em inglês,
+        # traduzidos pelo plugin); se não existirem, copiam-se da lista publicada.
+        "patterns": state.get("patterns") or current.get("patterns", []),
         "vulnerabilities": vulns,
     }
     text = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))

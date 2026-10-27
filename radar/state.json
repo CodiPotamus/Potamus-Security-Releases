@@ -17,12 +17,12 @@
  "patterns": [
   {
    "level": "high",
-   "label": "Funções perigosas escondidas em texto concatenado",
+   "label": "Dangerous functions hidden in concatenated text",
    "regex": "/['\"](?:e|s)['\"]\\s*\\.\\s*['\"](?:val|ystem)['\"]/i"
   },
   {
    "level": "high",
-   "label": "Carregamento de código a partir de uma URL remota",
+   "label": "Loading code from a remote URL",
    "regex": "/\\b(?:include|require)(?:_once)?\\s*\\(?\\s*['\"]https?:/i"
   }
  ],
